@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-1 ページをまたいだデータの移動 | ノリと勢いで学ぶPHP</title>
+</head>
+<body>
+    <h1>HTMLの復習</h1>
+    <!-- HTMLで学んだformタグですが，action属性に指定した先にデータを飛ばします -->
+    <!-- PHPはこのformから飛ばした情報を受け取って処理し，適切なWebページを作成して返すことができます -->
+    <!-- formからデータを送るときはinputタグなどにname属性を付ける必要があります -->
+    <!-- 見た目はガチャガチャだけど，例としては以下のような形 -->
+    <!-- ※今回の授業ではセキュリティ的な面はあまりお話ししません。 -->
+    <form action="" method="get">
+        <label for="classId">科目ID</label><input id="classId" type="text" name="classId"><br>
+        <input type="submit" value="検索">
+    </form>
+    <form action="" method="post">
+        <label for="id">ID</label><input id="id" type="text" name="id"><br>
+        <label for="pw">パスワード</label><input id="pw" type="password" name="pw"><br>
+        <input type="submit" value="ログイン">
+    </form>
+</body>
+</html>
