@@ -14,7 +14,7 @@ PHP学習教材(ノリと勢いで学ぶPHP)のコード
     4. $_POST の使い方
     5. ファイルのアップロード
 3. ファイルの分割とか
-    - require と include
+    1. require と include
 4. ページをまたいだ利用
     1. セッションについて
     2. $_SESSIONの使い方
