@@ -47,5 +47,11 @@ if(isset($_FILES['userfile'])) {
     </form>
     <!-- 結果をメッセージとして出力しましょう -->
     <p><?php echo $message; ?></p>
+    <!-- 登録されている画像を表示します -->
+    <div>
+        <?php foreach(glob('./uploads/*') as $file): ?>
+            <img src="<?= $file ?>" alt="">
+        <?php endforeach; ?>
+    </div>
 </body>
 </html>
