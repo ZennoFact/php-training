@@ -25,7 +25,7 @@ if( isset($_POST['id']) && isset($_POST['pw']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4-3 ページをまたいだ利用 | ノリと勢いで学ぶPHP</title>
+    <title>4-4 ページをまたいだ利用 | ノリと勢いで学ぶPHP</title>
 </head>
 <body>
     <h1>SESSION有りの処理</h1>
