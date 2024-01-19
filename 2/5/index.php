@@ -49,8 +49,8 @@ if(isset($_FILES['userfile'])) {
     <p><?php echo $message; ?></p>
     <!-- 登録されている画像を表示します -->
     <div>
-        <?php foreach(glob('./uploads/*') as $file): ?>
-            <img src="<?= $file ?>" alt="">
+        <?php foreach(glob('./uploads/*') as $filepath): ?>
+            <img src="<?= $filepath ?>" alt="">
         <?php endforeach; ?>
     </div>
 </body>

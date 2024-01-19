@@ -39,6 +39,6 @@ if(isset($_GET['classId'])) {
         <label for="className">科目ID</label><input id="classId" type="text" name="classId"><br>
         <input type="submit" value="検索">
     </form>
-    <p>検索結果：<?php echo $className; ?></p>
+    <p>検索結果：<?= $className ?></p>
 </body>
 </html>
