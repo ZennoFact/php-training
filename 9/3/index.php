@@ -1,5 +1,5 @@
 <?php
-// データの追加もやることは基本的に一緒です。
+// データの変更です。
 $dbname = '../sample.db';
 try {
     $pdo = new PDO("sqlite:$dbname");
@@ -27,7 +27,6 @@ EOS;
     $sql = 'update user set name = ? where userid = ?';
     // prepareでsqlを実行する準備をします。
     $stmt = $pdo->prepare($sql);
-    
     // 「?」で指定されている場合は，?の順に値を指定します。（位置大事）
     $stmt->execute(['うぬ', 'you']);
     
