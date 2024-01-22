@@ -7,16 +7,16 @@ try {
     echo '接続に成功しました。';
 
     // コマンドラインから直接DBを操作してテーブルを作成してからプログラムを動かすことももちろん可能です。
-    // その場合は毎回このSQLを発行せずに済みますね。
-    $sql = <<<EOS
-CREATE TABLE IF NOT EXISTS user (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userid TEXT,
-    password TEXT,
-    name TEXT,
-    email TEXT
-)
-EOS;
+    // その場合は毎回このSQLを発行せずに済みますね。というわけで，今回は事前に作っているということで，このSQLはコメントアウトしておきます。
+//     $sql = <<<EOS
+// CREATE TABLE IF NOT EXISTS user (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     userid TEXT,
+//     password TEXT,
+//     name TEXT,
+//     email TEXT
+// )
+// EOS;
     echo "削除<br>";
 
     // データベースは複数の処理を連続で行うことができます。
