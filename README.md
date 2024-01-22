@@ -36,10 +36,13 @@ PHP学習教材(ノリと勢いで学ぶPHP)のコード
     3. public と private。メソッドの作りこみ
     4. クラス定数
     5. static（簡易的なViewクラスの作成）
-8. データベースをいじろう
+8. PHPでデータベースをいじろう（CRUD）
     1. SQLite3 について
-    2. SQLite3 を実際に使ってみる
-9.  プログラムからデータベースに触れる
+    2. SQLite3 でDB（作成と同時に）接続
+    3. SQLite3 でデータの追加（CREATE）と取得（READ）
+    4. SQLite3 でデータの変更（UPDATE）
+    5. SQLite3 でデータの削除（DELETE）
+9. PHPからより細かくデータベースに触れる
     1. PDOでのDB接続
     2. データの取り出し方１：query
     3. データの取り出し方２：prepare と execute
