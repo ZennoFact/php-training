@@ -4,12 +4,10 @@ class Database {
 
     private $pdo;
     
-    // データベースへの接続と，不足している場合テーブルの作成を行います。
     public function __construct($dbname) {
         try {
             $this->pdo = new PDO("sqlite:$dbname");
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // テーブルの初期化処理が長くなるのでメソッドにして一番下へ移動させました。
             $this->init();
         } catch (Exception $e) {
             echo '接続に失敗しました。';
@@ -127,7 +125,6 @@ class Database {
     // 初期化処理があまりにも長くなるので，基本はこんな風にプログラムからデータベースを初期化したりはしません。
     function init() {
         // 連番の主キーではなく，ユーザーIDを主キーにします。
-        // このユーザーが現在有効かどうかという情報をstatusというカラムに持たせることにします。
         $createTableSql = <<<EOS
 CREATE TABLE IF NOT EXISTS user (
     id TEXT PRIMARY KEY,

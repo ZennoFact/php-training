@@ -4,12 +4,10 @@ class Database {
 
     private $pdo;
     
-    // データベースへの接続と，不足している場合テーブルの作成を行います。
     public function __construct($dbname) {
         try {
             $this->pdo = new PDO("sqlite:$dbname");
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // テーブルの初期化処理が長くなるのでメソッドにして一番下へ移動させました。
             $this->init();
         } catch (Exception $e) {
             echo '接続に失敗しました。';
@@ -18,12 +16,10 @@ class Database {
         }
     }
 
-    // データベースへの接続を切断します。
     public function disconnect() {
         $this->pdo = null;
     }
 
-    // データベースにユーザーデータを追加します。
     public function insertUser($id, $password, $name, $email) {
         $sql = 'insert into user (id, password, name, email, status) values (:id, :password, :name, :email, 0)';
         try {
@@ -39,7 +35,6 @@ class Database {
         }
     }
 
-    // データベースにユーザーデータを追加します。
     public function insertUsers($users) {
         $sql = 'insert into user (id, password, name, email, status) values (:id, :password, :name, :email, 0)';
         try {
@@ -57,9 +52,29 @@ class Database {
         }
     }
 
-    // データベースからユーザーIDをもとにユーザーデータを取得します。
+    // ログインの確認をして，成功すればIDを返し，失敗すればfalseを返すようにしました。
+    public function loginProcess($id, $password) {
+        // 必要な情報はIDとパスワードのみなので絞って取得します。
+        $sql = 'select id, password from user where id = :id';
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            // ユーザーが存在していない場合は $result は false になります。
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // ユーザーが存在していて，パスワードが一致していればIDを返します。
+            if( $result && $result['password'] === $password) return $result['id'];
+            return false;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    // 表に出すデータだけ返したい。
     public function getUser($id) {
-        $sql = 'select * from user where id = :id';
+        // サービス上で必要な id と 名前だけ返すようにしましょう。
+        $sql = 'select id, name from user where id = :id';
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id', $id);
@@ -71,7 +86,6 @@ class Database {
         }
     }
 
-    // データベースから有効なユーザーデータ（全員）を取得します。
     public function getActiveUsers() {
         $sql = 'select * from user where status = 0';
         try {
@@ -84,7 +98,6 @@ class Database {
         }
     }
 
-    // データベースからユーザーデータの名前とメールアドレスを更新します。
     public function updateUser($id, $name, $email) {
         $sql = 'update user set name = :name, email = :email where id = :id';
         try {
@@ -98,7 +111,6 @@ class Database {
         }
     }
 
-    // データベースからユーザーデータのパスワードを変更します。
     public function changePassword($id, $password) {
         $sql = 'update user set password = :password where id = :id';
         try {
@@ -111,7 +123,6 @@ class Database {
         }
     }
 
-    // データベースからユーザーデータを無効にします
     public function disableUser($id) {
         $sql = 'update user set status = -1 where id = :id';
         try {
@@ -124,10 +135,7 @@ class Database {
         }
     }
 
-    // 初期化処理があまりにも長くなるので，基本はこんな風にプログラムからデータベースを初期化したりはしません。
     function init() {
-        // 連番の主キーではなく，ユーザーIDを主キーにします。
-        // このユーザーが現在有効かどうかという情報をstatusというカラムに持たせることにします。
         $createTableSql = <<<EOS
 CREATE TABLE IF NOT EXISTS user (
     id TEXT PRIMARY KEY,
@@ -137,7 +145,6 @@ CREATE TABLE IF NOT EXISTS user (
     status INTEGER
 )
 EOS;
-        // ユーザーステータスを表すテーブルを作成します。
         $createUserStatusSql = <<<EOS
 CREATE TABLE IF NOT EXISTS user_status (
     id INTEGER PRIMARY KEY,
@@ -147,11 +154,9 @@ EOS;
         try {
             $this->pdo->query($createTableSql);
             $this->pdo->query($createUserStatusSql);
-            // ユーザーステータスのデータを入れます。(既に存在するデータは無視します)
             $this->pdo->query("insert or ignore into user_status (id, name) values (-1, '無効')");
             $this->pdo->query("insert or ignore into user_status (id, name) values (0, '有効')");
     
-            // テスト用のユーザーデータを入れます。(既に存在するデータは無視します)
             $this->insertUsers([
                 ['id' => 'zenno'   , 'password' => 'test1', 'name' => 'ぜんのー', 'email' => 'test1@sample.admin', 'status' => 0], 
                 ['id' => 'panpukin', 'password' => 'test2', 'name' => 'アダムスミス', 'email' => 'test2@sample.admin', 'status' => 0],
