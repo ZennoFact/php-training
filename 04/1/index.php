@@ -40,6 +40,6 @@ if( isset($_POST['id']) && isset($_POST['pw']) ) {
         <input type="submit" value="ログイン">
     </form>
     <!-- 結果をメッセージとして出力しましょう -->
-    <p><?php echo $message; ?></p>
+    <p><?= $message ?></p>
 </body>
 </html>
